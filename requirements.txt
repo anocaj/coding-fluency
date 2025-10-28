@@ -1,0 +1,9 @@
+# Core Python dependencies for coding practice repository
+# This file intentionally kept minimal - most exercises use only standard library
+
+# Optional: For enhanced testing and validation
+# pytest>=7.0.0  # Uncomment if you want to add formal testing
+# black>=22.0.0  # Uncomment if you want code formatting
+# flake8>=4.0.0  # Uncomment if you want linting
+
+# No required dependencies - uses Python standard library only
