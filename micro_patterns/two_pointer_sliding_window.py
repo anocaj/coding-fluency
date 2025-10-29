@@ -29,7 +29,19 @@ def two_pointers_converging(arr, target_sum):
         >>> two_pointers_converging([1, 2, 3, 4, 5], 7)
         (1, 3)
     """
-    pass
+    left = 0
+    right = len(arr) - 1
+    
+    while left < right:
+        current_sum = arr[left] + arr[right]
+        if current_sum == target_sum:
+            return (left, right)
+        elif current_sum < target_sum:
+            left += 1
+        else:
+            right -= 1
+    
+    return None
 
 # Exercise 2: Fixed Sliding Window Pattern
 def fixed_sliding_window(arr, window_size):
@@ -47,7 +59,21 @@ def fixed_sliding_window(arr, window_size):
         >>> fixed_sliding_window([1, 2, 3, 4, 5], 3)
         [6, 9, 12]
     """
-    pass
+    if len(arr) < window_size:
+        return []
+    
+    window_sums = []
+    
+    # Calculate sum of first window
+    window_sum = sum(arr[:window_size])
+    window_sums.append(window_sum)
+    
+    # Slide the window: remove leftmost element, add new rightmost element
+    for i in range(window_size, len(arr)):
+        window_sum = window_sum - arr[i - window_size] + arr[i]
+        window_sums.append(window_sum)
+    
+    return window_sums
 
 # Exercise 3: Variable Sliding Window Pattern
 def variable_sliding_window(arr, target_sum):
@@ -65,7 +91,23 @@ def variable_sliding_window(arr, target_sum):
         >>> variable_sliding_window([1, 2, 3, 4, 5], 9)
         (1, 3)
     """
-    pass
+    left = 0
+    current_sum = 0
+    
+    for right in range(len(arr)):
+        # Expand window by adding current element
+        current_sum += arr[right]
+        
+        # Contract window from left while sum is too large
+        while current_sum > target_sum and left <= right:
+            current_sum -= arr[left]
+            left += 1
+        
+        # Check if we found the target sum
+        if current_sum == target_sum:
+            return (left, right)
+    
+    return None
 
 # Exercise 4: Cumulative Sum Tracking Pattern
 def cumulative_sum_window(arr, window_size):
@@ -83,7 +125,28 @@ def cumulative_sum_window(arr, window_size):
         >>> cumulative_sum_window([1, 3, 2, 6, 1], 3)
         ([6, 11, 9], 11, 1)
     """
-    pass
+    if len(arr) < window_size:
+        return ([], None, None)
+    
+    window_sums = []
+    
+    # Calculate sum of first window
+    window_sum = sum(arr[:window_size])
+    window_sums.append(window_sum)
+    max_sum = window_sum
+    max_sum_index = 0
+    
+    # Slide the window and track maximum
+    for i in range(window_size, len(arr)):
+        window_sum = window_sum - arr[i - window_size] + arr[i]
+        window_sums.append(window_sum)
+        
+        # Update maximum sum and its index
+        if window_sum > max_sum:
+            max_sum = window_sum
+            max_sum_index = i - window_size + 1
+    
+    return (window_sums, max_sum, max_sum_index)
 
 # Test cases
 def test_two_pointers_converging():

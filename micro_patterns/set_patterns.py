@@ -1,115 +1,180 @@
 """
-Daily Warm-up: Set Operations Patterns
-======================================
+Daily Warm-up: Set Patterns
+============================
 Time: 10-15 minutes daily practice
-Focus: Set operations and uniqueness handling
+Focus: Set operations, uniqueness, and efficient membership testing
 
 Instructions:
 - Practice one exercise at a time
-- Focus on speed and accuracy
-- Repeat exercises until patterns become automatic
-- Time yourself to build fluency
+- Focus on speed and accuracy with set operations
+- Repeat exercises until set patterns become automatic
+- Time yourself to build fluency with set-based solutions
 
 Usage: Run `python set_patterns.py` to execute all tests
 """
 
-# Exercise 1: Unique Elements Pattern
-def get_unique_elements(arr):
+
+# Exercise 1: Unique Elements
+def find_unique_elements(arr):
     """
-    Demonstrate duplicate removal using set() for uniqueness.
+    Remove duplicates from a list using set operations.
     
     Args:
-        arr: List that may contain duplicates
+        arr: List that may contain duplicate elements
     
     Returns:
-        list: List of unique elements (order may vary)
+        list: List of unique elements (order may not be preserved)
         
     Example:
-        >>> sorted(get_unique_elements([1, 2, 2, 3, 1, 4]))
-        [1, 2, 3, 4]
+        >>> find_unique_elements([1, 2, 2, 3, 1, 4])
+        [1, 2, 3, 4]  # Order may vary
     """
-    pass
+    # Convert to set to remove duplicates, then back to list
+    return list(set(arr))
 
-# Exercise 2: Membership Testing Pattern
-def efficient_membership_check(arr, targets):
+
+# Exercise 2: Membership Testing
+def efficient_membership_check(items, search_list):
     """
-    Demonstrate efficient membership checks using sets.
+    Check if items exist in a collection using efficient set-based lookup.
     
     Args:
-        arr: List to convert to set for fast lookups
-        targets: List of elements to check for membership
+        items: List of items to search for
+        search_list: List to search within
     
     Returns:
-        list: Boolean results for each target's membership
+        list: Boolean list indicating which items were found
         
     Example:
-        >>> efficient_membership_check([1, 2, 3, 4], [2, 5, 3])
-        [True, False, True]
+        >>> efficient_membership_check([1, 5, 9], [1, 2, 3, 4, 5])
+        [True, True, False]
     """
-    pass
+    # Convert search_list to set for O(1) lookup time
+    search_set = set(search_list)
+    
+    # Check membership for each item using set lookup
+    return [item in search_set for item in items]
 
-# Exercise 3: Set Operations Pattern
-def perform_set_operations(set1, set2):
+
+# Exercise 3: Set Operations
+def set_operations_demo(set1, set2):
     """
-    Demonstrate intersection, union, and difference operations.
+    Demonstrate intersection, union, and difference operations on sets.
     
     Args:
-        set1: First set for operations
-        set2: Second set for operations
+        set1: First set of elements
+        set2: Second set of elements
     
     Returns:
-        tuple: (intersection, union, difference) results
+        dict: Dictionary with 'intersection', 'union', and 'difference' keys
         
     Example:
-        >>> perform_set_operations({1, 2, 3}, {2, 3, 4})
-        ({2, 3}, {1, 2, 3, 4}, {1})
+        >>> set_operations_demo([1, 2, 3], [2, 3, 4])
+        {'intersection': {2, 3}, 'union': {1, 2, 3, 4}, 'difference': {1}}
     """
-    pass
+    # Convert inputs to sets
+    s1 = set(set1)
+    s2 = set(set2)
+    
+    return {
+        'intersection': s1 & s2,  # Elements in both sets
+        'union': s1 | s2,        # Elements in either set
+        'difference': s1 - s2    # Elements in s1 but not in s2
+    }
 
-# Exercise 4: Set Comprehension Pattern
-def create_set_with_condition(arr, condition_func):
+
+# Exercise 4: Set Comprehensions and Advanced Operations
+def advanced_set_operations(data):
     """
-    Demonstrate set comprehensions with conditions.
+    Use set comprehensions and advanced set operations for data processing.
     
     Args:
-        arr: List to process
-        condition_func: Function to filter elements
+        data: List of numbers
     
     Returns:
-        set: Set of elements meeting the condition
+        dict: Dictionary with various set-based analyses
         
     Example:
-        >>> create_set_with_condition([1, 2, 3, 4, 5, 2, 4], lambda x: x % 2 == 0)
-        {2, 4}
+        >>> advanced_set_operations([1, 2, 3, 4, 5, 6])
+        {'evens': {2, 4, 6}, 'odds': {1, 3, 5}, 'squares': {1, 4, 9, 16, 25, 36}}
     """
-    pass
+    # Use set comprehensions for efficient filtering and transformation
+    return {
+        'evens': {x for x in data if x % 2 == 0},
+        'odds': {x for x in data if x % 2 == 1},
+        'squares': {x * x for x in data}
+    }
 
-# Test cases
-def test_get_unique_elements():
-    result = sorted(get_unique_elements([1, 2, 2, 3, 1, 4]))
-    assert result == [1, 2, 3, 4]
-    assert get_unique_elements([]) == []
-    assert get_unique_elements([5]) == [5]
 
+# Test cases for Exercise 1
+def test_find_unique_elements():
+    result = find_unique_elements([1, 2, 2, 3, 1, 4])
+    assert set(result) == {1, 2, 3, 4}
+    
+    result = find_unique_elements([])
+    assert result == []
+    
+    result = find_unique_elements([5, 5, 5])
+    assert result == [5]
+    
+    result = find_unique_elements([1, 2, 3])
+    assert set(result) == {1, 2, 3}
+
+
+# Test cases for Exercise 2
 def test_efficient_membership_check():
-    assert efficient_membership_check([1, 2, 3, 4], [2, 5, 3]) == [True, False, True]
-    assert efficient_membership_check([], [1, 2]) == [False, False]
-    assert efficient_membership_check([1, 2], []) == []
+    result = efficient_membership_check([1, 5, 9], [1, 2, 3, 4, 5])
+    assert result == [True, True, False]
+    
+    result = efficient_membership_check([], [1, 2, 3])
+    assert result == []
+    
+    result = efficient_membership_check([10, 20], [])
+    assert result == [False, False]
+    
+    result = efficient_membership_check([1, 1, 2], [1, 2, 3])
+    assert result == [True, True, True]
 
-def test_perform_set_operations():
-    intersection, union, difference = perform_set_operations({1, 2, 3}, {2, 3, 4})
-    assert intersection == {2, 3}
-    assert union == {1, 2, 3, 4}
-    assert difference == {1}
 
-def test_create_set_with_condition():
-    result = create_set_with_condition([1, 2, 3, 4, 5, 2, 4], lambda x: x % 2 == 0)
-    assert result == {2, 4}
-    assert create_set_with_condition([], lambda x: True) == set()
+# Test cases for Exercise 3
+def test_set_operations_demo():
+    result = set_operations_demo([1, 2, 3], [2, 3, 4])
+    assert result['intersection'] == {2, 3}
+    assert result['union'] == {1, 2, 3, 4}
+    assert result['difference'] == {1}
+    
+    result = set_operations_demo([1, 2], [3, 4])
+    assert result['intersection'] == set()
+    assert result['union'] == {1, 2, 3, 4}
+    assert result['difference'] == {1, 2}
+    
+    result = set_operations_demo([1, 2, 3], [1, 2, 3])
+    assert result['intersection'] == {1, 2, 3}
+    assert result['union'] == {1, 2, 3}
+    assert result['difference'] == set()
+
+
+# Test cases for Exercise 4
+def test_advanced_set_operations():
+    result = advanced_set_operations([1, 2, 3, 4, 5, 6])
+    assert result['evens'] == {2, 4, 6}
+    assert result['odds'] == {1, 3, 5}
+    assert result['squares'] == {1, 4, 9, 16, 25, 36}
+    
+    result = advanced_set_operations([])
+    assert result['evens'] == set()
+    assert result['odds'] == set()
+    assert result['squares'] == set()
+    
+    result = advanced_set_operations([2, 4])
+    assert result['evens'] == {2, 4}
+    assert result['odds'] == set()
+    assert result['squares'] == {4, 16}
+
 
 if __name__ == "__main__":
-    test_get_unique_elements()
+    test_find_unique_elements()
     test_efficient_membership_check()
-    test_perform_set_operations()
-    test_create_set_with_condition()
-    print("All set pattern tests passed!")
+    test_set_operations_demo()
+    test_advanced_set_operations()
+    print("All tests passed!")
