@@ -2,6 +2,13 @@
 
 A structured coding practice system that enables systematic improvement of coding challenge implementation skills through daily practice, targeted drills, and timed sessions.
 
+Coding Problems 1:
+- https://docs.google.com/document/d/1AQq-zebGZOIMGn_OCa7rMOz_n-Q17_7nWpujPuKOEtw/edit?tab=t.0
+  
+
+Coding Problems 2:
+- https://docs.google.com/spreadsheets/d/1v9bWzw0q4vbels9Vvg973OIy4DDTERroVEFBnae8OgI/edit?gid=103551385#gid=103551385 
+
 ## Repository Structure
 
 ```
