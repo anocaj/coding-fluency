@@ -45,23 +45,18 @@ fs = {
 }
 
 class Solution:
-    def printLine(depth, currItem, isLast, isDir):
-            depthSpaces = " " * depth
-            bracketType = "└── " if isLast else "├── "
-            print(f"{depthSpaces}{bracketType}{currItem}")
 
     def solve_problem(self, input_param):
         """
-        [Brief description of what this function does]
-        
+        Pretty-print a mocked file system in `tree` format.
+
         Args:
-            input_param: [Description of the input parameter and its type]
-            
-        Returns:
-            [Description of what the function returns and its type]
-            
-        Time Complexity: O([your analysis])
-        Space Complexity: O([your analysis])
+            fs (dict): Mocked filesystem where
+                       - keys are file/directory names
+                       - values are None (file) or dict (directory)
+
+        Time Complexity: O(N)
+        Space Complexity: O(D)
         """
         print(".")
         dir_count = 1 # root

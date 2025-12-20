@@ -108,10 +108,10 @@ recursive and breath first seach
 ## Time & Space Complexity
 
 ### Time Complexity
-**O([your analysis])** - [Explain why this is the time complexity]
+**O(N)** - iterate through list items at least once. N is number of files
 
 ### Space Complexity  
-**O([your analysis])** - [Explain the space usage, including auxiliary space]
+**O(D)** - D is depth of tree
 
 ### Optimization Notes
 [Any thoughts on how this could be optimized further, or trade-offs made]
@@ -119,4 +119,4 @@ recursive and breath first seach
 ---
 
 **Planning completed at:** 2025-12-20 14:05:48
-**Estimated implementation time:** [your estimate]
+**Estimated implementation time:** 2025-12-20 15:11:48
