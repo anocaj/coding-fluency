@@ -1,6 +1,6 @@
 """
 Daily Coding Practice Solution
-Problem: [Problem Name]
+Problem: Triangles
 Date: 2025-12-22
 """
 
@@ -49,7 +49,39 @@ class Triangles:
         pixels.extend(self.drawLine(point1,point3, color))
         pixels.extend(self.drawLine(point3,point2 , color))
         return pixels
-    
+    def floodFill(self, point, color):
+        # we only now boundaries once we reach them
+        # approach would be a dfs algorithm that checks surrounding points.
+        # if out of bounds reached stop
+        # detect boundary?
+        # we know our current color i.e. 2 
+        # now we start and check surroundings:
+        # if surroundings match defined color dont continue. if it does not match. mark current color and continue to the next
+        # mark as visited
+        visited = [[False for col in range(72)] for row in range(32)]
+        target_color = self.screen[point[0]][point[1]]
+        def dfs(point):
+            row, col = point
+
+            if row < 0 or row > 32 - 1 or col < 0 or col > 72 - 1 \
+                    or self.screen[row][col] != target_color  or visited[row][col]:
+                return
+            
+            self.screen[row][col] = color
+            visited[row][col] = True
+
+            # now run dfs in all directions
+            dfs([point[0]+1,point[1]+0]) # Bottom
+            dfs([point[0]+0,point[1]+1]) # Right
+            dfs([point[0]-1,point[1]+0]) # Top
+            dfs([point[0]+0,point[1]-1]) # Left
+
+        if target_color == color:
+            return  # already filled, nothing to do
+        dfs(point)
+
+
+
     def fillTriangle(self, point1, point2, point3, color):
         perimeterPoints = self.drawPerimeter(point1, point2, point3, color)
         # print(perimeterPoints)
@@ -177,9 +209,30 @@ class Solution:
 
         triangles = Triangles()
         triangles.fillTriangle([12,0], [12,70], [30,35], 2)
-
-
         triangles.render()
+        # what about multiple triangles in same row?
+
+
+        print("DRAW Flood fill")
+
+        triangles = Triangles()
+        triangles.drawPerimeter([12,0], [12,70], [30,35], 2)
+        triangles.render()
+
+        # any point in triangle 
+        pointInTriangle = [15, 35]
+        triangles.floodFill(pointInTriangle, 3)
+        triangles.render()
+
+
+        # point outside of triangle? how to handle that? I think we want to get
+        # pointOutOfTriangle = [10,2]
+        # any point in triangle 
+        pointInTriangle = [10,2]
+        triangles.floodFill(pointInTriangle, 1)
+        triangles.render()
+
+        # what about multiple triangles? deprioritized
 
 
 def test_solution():
