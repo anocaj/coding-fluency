@@ -142,19 +142,7 @@ draw [0,1]
 urr point = ["1/4",1]  = [0,1]=  [0+0,1+1] 
 
 
-### Approach
-[Describe your chosen approach in plain English. Why did you choose this method?]
-
-### Pseudocode
-```
-1. [Step 1 of your algorithm]
-2. [Step 2 of your algorithm]
-3. [Continue with logical steps...]
-4. [Final step and return]
-```
-
 ### Alternative Approaches Considered
-[List any other approaches you considered and why you didn't choose them]
 
 ## Edge Cases
 
@@ -168,13 +156,25 @@ urr point = ["1/4",1]  = [0,1]=  [0+0,1+1]
 ## Time & Space Complexity
 
 ### Time Complexity
+O(R⋅C)(screen size dominates everything else)
 **O([your analysis])** - [Explain why this is the time complexity]
 
 ### Space Complexity  
-**O([your analysis])** - [Explain the space usage, including auxiliary space]
+<!-- **O([your analysis])** - [Explain the space usage, including auxiliary space] -->
+screen → O(R × C)
+
+visited in flood fill → O(R × C)
+
+Temporary pixel lists → O(number of pixels per line / perimeter)
 
 ### Optimization Notes
-[Any thoughts on how this could be optimized further, or trade-offs made]
+1. Bresenham's Algorithm Avoids floats and rounding
+Guarantees that each pixel aloing the line is contniuos
+
+2. draw each pixel directly to save space 
+3. Iterative BFS instead pf recursion for floodfill Slightly faster since stack/queue operations are cheaper than recursive calls.
+4. remove visited array: overwrite the pixel immediately
+5. Early exit - Already implemented (target_color == color) — good.
 
 ---
 
