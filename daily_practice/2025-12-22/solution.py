@@ -43,19 +43,59 @@ class Triangles:
             row, col = pixel[0]
             self.screen[round(row)][round(col)] = pixel[1]
 
+    def drawPerimeter(self,point1,point2, point3, color):
+        pixels = []
+        pixels.extend(self.drawLine(point1,point2, color))
+        pixels.extend(self.drawLine(point1,point3, color))
+        pixels.extend(self.drawLine(point3,point2 , color))
+        return pixels
+    
+    def fillTriangle(self, point1, point2, point3, color):
+        perimeterPoints = self.drawPerimeter(point1, point2, point3, color)
+        # print(perimeterPoints)
+
+        # iterate through points
+        # create a map for each row and store its min and max:
+        minMaxMap = {}#{row: [min,max]}
+
+        for point in perimeterPoints:
+            coord = point[0]
+            row = coord[0]
+            col = coord[1]
+
+
+            idx = round(row)
+            if idx not in minMaxMap:
+                minMaxMap[idx] = [min(73,col),max(-1,col)]
+            else:
+                minMaxMap[idx][0] = min(minMaxMap[idx][0], col)
+                minMaxMap[idx][1] = max(minMaxMap[idx][1], col)
+
+
+        print(minMaxMap)
+        for row in minMaxMap:
+            print(row)
+            print(minMaxMap[row][0],minMaxMap[row][1])
+            self.drawLine([row,minMaxMap[row][0]],[row,minMaxMap[row][1]],color)
+
+
     def drawLine(self, point1, point2, color):
+        pixels = []
         # check if out of bound if needed
         if point1[0] == point2[0] and point1[1] == point2[1]:
-            self.drawPixels([[point1,color]])
+            pixels.append([point1,color])
+            # self.drawPixels([[point1,color]])
         elif point1[0] == point2[0]: # same row 
             row = point1[0]
-            for i in range(min(point1[1],point2[1]), max(point1[1],point2[1])):
-                self.drawPixels([[[row,i],color]])
+            for i in range(round(min(point1[1],point2[1])), round(max(point1[1],point2[1]))):
+                pixels.append([[row,i],color])
+                # self.drawPixels([[[row,i],color]])
 
         elif point1[1] == point2[1]:# same col or same row
             col = point1[1]
             for i in range(min(point1[0],point2[0]), max(point1[0],point2[0])):
-                self.drawPixels([[[i,col],color]])
+                pixels.append([[i,col],color])
+                # self.drawPixels([[[i,col],color]])
             
         else: # compute number of steps
             dcol = abs(point1[1]-point2[1])
@@ -75,7 +115,9 @@ class Triangles:
                 print("nextPoint: ",nextPoint)
 
                 pixels.append([nextPoint,color])
-            self.drawPixels(pixels)
+
+        self.drawPixels(pixels)
+        return pixels
         
 
 class Solution:
@@ -133,9 +175,13 @@ class Solution:
         triangles.drawLine([0,10],[5,10], 2)
         triangles.drawLine([10,10],[10,15], color)
 
-        triangles.drawLine([12,0],[12,70], color)
-        triangles.drawLine([12,0],[30,35], color)
-        triangles.drawLine([30,35],[12,70] , color)
+        # triangles.drawLine([12,0],[12,70], color)
+        # triangles.drawLine([12,0],[30,35], color)
+        # triangles.drawLine([30,35],[12,70] , color)
+
+        triangles = Triangles()
+        triangles.fillTriangle([12,0], [12,70], [30,35], 2)
+
 
         triangles.render()
 
