@@ -34,12 +34,12 @@ class Triangles:
                 pixel = self.screen[row][col]
                 mappedLine = mappedLine + self.colorMap[pixel]
 
-            print(f"{mappedLine}")
+            print(mappedLine)
 
     def drawPixels(self, pixels):
-        print(pixels)
+        # print(pixels)
         for pixel in pixels:
-            print(pixel)
+            # print(pixel)
             row, col = pixel[0]
             self.screen[round(row)][round(col)] = pixel[1]
 
@@ -72,10 +72,10 @@ class Triangles:
                 minMaxMap[idx][1] = max(minMaxMap[idx][1], col)
 
 
-        print(minMaxMap)
+        # print(minMaxMap)
         for row in minMaxMap:
-            print(row)
-            print(minMaxMap[row][0],minMaxMap[row][1])
+            # print(row)
+            # print(minMaxMap[row][0],minMaxMap[row][1])
             self.drawLine([row,minMaxMap[row][0]],[row,minMaxMap[row][1]],color)
 
 
@@ -106,13 +106,13 @@ class Triangles:
             pixels = [[point1,color]]
 
             stepSize = [(point2[0]-point1[0])/steps, (point2[1]-point1[1])/steps]
-            print("stepSize: ",stepSize)
+            # print("stepSize: ",stepSize)
             
             for i in range(steps):
                 lastPoint = pixels[-1]
                 lastCoord = lastPoint[0]
                 nextPoint = [lastCoord[0]+stepSize[0], lastCoord[1]+stepSize[1]]
-                print("nextPoint: ",nextPoint)
+                # print("nextPoint: ",nextPoint)
 
                 pixels.append([nextPoint,color])
 
@@ -159,25 +159,21 @@ class Solution:
 
         print("DRAW LINE")
 
-        # point1 = [0,0]
-        # # point2 = [2,4]
-        # point2 = [0,4]
-        # color = 2
-
-        # triangles.drawLine(point1,point2, color)
-
         point1 = [0,0]
-        point2 = [2,4]
-        # point2 = [0,4]
-        color = 3
+        # point2 = [2,4]
+        point2 = [31,71]
+        color = 2
 
         triangles.drawLine(point1,point2, color)
-        triangles.drawLine([0,10],[5,10], 2)
-        triangles.drawLine([10,10],[10,15], color)
+
+
+        triangles.render()
 
         # triangles.drawLine([12,0],[12,70], color)
         # triangles.drawLine([12,0],[30,35], color)
         # triangles.drawLine([30,35],[12,70] , color)
+
+        print("DRAW Triangle")
 
         triangles = Triangles()
         triangles.fillTriangle([12,0], [12,70], [30,35], 2)
