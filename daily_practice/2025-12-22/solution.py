@@ -25,7 +25,8 @@ class Triangles:
             2: "\x1b[40m \x1b[0m", # black
             3: "\x1b[44m \x1b[0m", # blue
         }
-
+        
+    # O(R * C )
     def render(self):
         ROWS, COLS = len(self.screen), len(self.screen[0])
         for row in range(ROWS):
@@ -36,6 +37,7 @@ class Triangles:
 
             print(mappedLine)
 
+    # O(P)
     def drawPixels(self, pixels):
         # print(pixels)
         for pixel in pixels:
@@ -43,12 +45,15 @@ class Triangles:
             row, col = pixel[0]
             self.screen[round(row)][round(col)] = pixel[1]
 
+    # O(3*Steps)
     def drawPerimeter(self,point1,point2, point3, color):
         pixels = []
         pixels.extend(self.drawLine(point1,point2, color))
         pixels.extend(self.drawLine(point1,point3, color))
         pixels.extend(self.drawLine(point3,point2 , color))
         return pixels
+    
+    # O(R * C )
     def floodFill(self, point, color):
         # we only now boundaries once we reach them
         # approach would be a dfs algorithm that checks surrounding points.
@@ -81,7 +86,6 @@ class Triangles:
         dfs(point)
 
 
-
     def fillTriangle(self, point1, point2, point3, color):
         perimeterPoints = self.drawPerimeter(point1, point2, point3, color)
         # print(perimeterPoints)
@@ -110,7 +114,7 @@ class Triangles:
             # print(minMaxMap[row][0],minMaxMap[row][1])
             self.drawLine([row,minMaxMap[row][0]],[row,minMaxMap[row][1]],color)
 
-
+    # O(seteps)
     def drawLine(self, point1, point2, color):
         pixels = []
         # check if out of bound if needed
