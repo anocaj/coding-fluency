@@ -1,21 +1,22 @@
 # Daily Practice Reflection - [Problem Name]
 
 **Date:** 2025-12-23  
-**Problem:** [Problem name/title]  
-**Time spent:** [Actual time taken]  
-**Completed:** [Yes/No/Partially]
+**Problem:** 
+**Time spent:** 90 min
+**Completed:** Yes
 
 ---
 
 ## What Went Well ✅
 
 ### Planning Phase
-- [ ] Did I understand the problem correctly on first read?
-- [ ] Was my initial approach sound?
-- [ ] Did I identify the key patterns/algorithms needed?
+- [x] Did I understand the problem correctly on first read?
+- [x] Was my initial approach sound?
+- [x] Did I identify the key patterns/algorithms needed?
 
 **What worked:**
 - [List specific things that went smoothly during planning]
+  - breakdown core logic and tree structure
 - [Any insights that came quickly]
 - [Good decisions made early on]
 
@@ -23,10 +24,11 @@
 - [ ] Did my code match my pseudocode?
 - [ ] Were my variable names clear and meaningful?
 - [ ] Did I handle edge cases properly?
+  - [ ] no i had thought not always about the edgecases especially when iterating through the tree. root level for ..
 
 **What worked:**
-- [List aspects of implementation that went well]
-- [Any coding techniques that were effective]
+- over all class implementation 
+- 
 - [Good debugging or testing practices used]
 
 ---
@@ -34,12 +36,13 @@
 ## Struggles & Challenges 🤔
 
 ### Conceptual Difficulties
-- [What parts of the problem were confusing?]
-- [Which algorithmic concepts were challenging?]
-- [Any misunderstandings about the problem requirements?]
+- could have though of propagating the filesize earlier
+- passing defaults to Node was bad since it would reference the same to all Nodes. meaning all nodes would have the same children i.e.
 
 ### Implementation Issues
+- string split(), removeprefix, startswith, strip, had to look them up. split(maxSplit=1)
 - [What bugs or errors did you encounter?]
+  - didnt think of recursive filessizes from the beginning.
 - [Which parts of the code were difficult to write?]
 - [Any syntax or language-specific issues?]
 
@@ -79,12 +82,14 @@
 
 ### Algorithmic Patterns Used
 - [List the main algorithmic patterns: two pointers, sliding window, etc.]
+  - dfs
 - [Data structures that were key to the solution]
-- [Any mathematical insights or formulas]
+  - tree with backlink parent
 
 ### Code Patterns/Techniques
 - [Useful coding patterns you applied]
 - [Helper functions or utilities that were valuable]
+  - dfs also printing the tree
 - [Testing strategies that worked well]
 
 ### Problem-Solving Insights
@@ -123,4 +128,4 @@
 
 ---
 
-**Reflection completed at:** 2025-12-23 10:50:06
+**Reflection completed at:** 2025-12-23 12:44:06
