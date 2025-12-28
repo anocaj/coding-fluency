@@ -104,18 +104,95 @@ class ConnectFour():
             print(row)
         print("Current Player: ", self.curPlayer)
 
+    def valid_moves(self) -> list[int]:
+        return [c for c in range(self.COLS) if self.grid[0][c] == 0]
+    
+    def clone(self) -> "ConnectFour":
+        new_game = ConnectFour()
+        new_game.grid = [row[:] for row in self.grid]
+        new_game.curPlayer = self.curPlayer
+        new_game.winner = self.winner
+        return new_game
+    
+    def evaluate(self, player: int) -> int:
+        opponent = 2 if player == 1 else 1
+
+        if self.winner == player:
+            return 10_000
+        if self.winner == opponent:
+            return -10_000
+        if self.is_draw():
+            return 0
+
+        score = 0
+
+        # Center column preference
+        center_col = self.COLS // 2
+        center_count = sum(
+            1 for r in range(self.ROWS) if self.grid[r][center_col] == player
+        )
+        score += center_count * 3
+
+        return score
+
+    def minimax(self, depth: int, alpha: int, beta: int, maximizing: bool, player: int) -> int:
+        opponent = 2 if player == 1 else 1
+
+        if depth == 0 or self.winner is not None or self.is_draw():
+            return self.evaluate(player)
+
+        if maximizing:
+            value = -10_000
+            for col in self.valid_moves():
+                child = self.clone()
+                child.drop_coin(player, col)
+                value = max(value, child.minimax(depth - 1, alpha, beta, False, player))
+                alpha = max(alpha, value)
+                if alpha >= beta:
+                    break
+            return value
+        else:
+            value = 10_000
+            for col in self.valid_moves():
+                child = self.clone()
+                child.drop_coin(opponent, col)
+                value = min(value, child.minimax(depth - 1, alpha, beta, True, player))
+                beta = min(beta, value)
+                if alpha >= beta:
+                    break
+            return value
+            
+    def best_move(self, player_id: int, depth: int = 5) -> int:
+        best_score = -10_000
+        best_col = None
+
+        for col in self.valid_moves():
+            child = self.clone()
+            child.drop_coin(player_id, col)
+            score = child.minimax(depth - 1, -10_000, 10_000, False, player_id)
+
+            if score > best_score:
+                best_score = score
+                best_col = col
+
+        return best_col
 
 
 class Solution:
     def solve_problem(self, input_param):
         game = ConnectFour()
-        print(game.drop_coin(1, 3))
-        print(game.drop_coin(2, 3))
-        print(game.drop_coin(1, 4))
-        print(game.drop_coin(2, 2))
-        print(game.drop_coin(1, 5))
-        print(game.drop_coin(2, 1))
-        print(game.drop_coin(1, 6, True)) #-> should return True
+        # print(game.drop_coin(1, 3))
+        # print(game.drop_coin(2, 3))
+        # print(game.drop_coin(1, 4))
+        # print(game.drop_coin(2, 2))
+        # print(game.drop_coin(1, 5))
+        # print(game.drop_coin(2, 1))
+        for i in range(40):
+            move = game.best_move(game.curPlayer)
+            game.drop_coin(game.curPlayer, move)
+            game.printState()
+        
+        # print(game.drop_coin(1, 6, True)) #-> should return True
         # print(game.drop_coin(2, 0))
 
         game.printState()
