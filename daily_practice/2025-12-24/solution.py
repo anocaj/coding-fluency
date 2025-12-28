@@ -24,8 +24,12 @@ class ConnectFour():
         self.grid = [[ 0 for col in range(self.COLS) ] for row in range(self.ROWS)]
         self.validPlayerIds = [1,2]
         self.curPlayer = 1 # one or two
+        self.winner = None
 
     def drop_coin(self, player_id, column, debug = False) -> MoveResult:
+        if self.winner is not None:
+            return {"valid": False, "winner": self.winner}
+
         if column < 0 or column >= self.COLS:
             return {"valid": False, "winner": None}
 
@@ -49,7 +53,7 @@ class ConnectFour():
         if debug:
             print(f"player_id: {player_id}, idxRow: {idxRow}, column: {column}")
         if self.detectWin(player_id, idxRow, column):
-            print(player_id)
+            self.winner = player_id
             return {"valid": True, "winner": player_id}
 
         self.curPlayer = self.curPlayer % 2 + 1
@@ -84,17 +88,16 @@ class ConnectFour():
         return False
             
     def is_draw(self) -> bool:
+        # If someone already won, it's not a draw
+        if self.winner is not None:
+            return False
+
+        # If any column is not full, it's not a draw
         for col in range(self.COLS):
             if self.grid[0][col] == 0:
                 return False
-        for r in range(self.ROWS):
-            for c in range(self.COLS):
-                if self.grid[r][c] != 0:
-                    if self.detectWin(self.grid[r][c], r, c):
-                        return False   
 
-        return True 
-       
+        return True
 
     def printState(self):
         for row in self.grid:
