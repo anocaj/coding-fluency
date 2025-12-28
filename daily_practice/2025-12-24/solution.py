@@ -83,6 +83,17 @@ class ConnectFour():
             
         return False
             
+    def is_draw(self) -> bool:
+        for col in range(self.COLS):
+            if self.grid[0][col] == 0:
+                return False
+        for r in range(self.ROWS):
+            for c in range(self.COLS):
+                if self.grid[r][c] != 0:
+                    if self.detectWin(self.grid[r][c], r, c):
+                        return False   
+
+        return True 
        
 
     def printState(self):
