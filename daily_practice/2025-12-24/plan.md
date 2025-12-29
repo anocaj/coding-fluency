@@ -135,8 +135,16 @@ game.is_draw() -> bool
 
 A draw occurs when:
 
-* The board is completely full
-* No player has won
+* The board is completely full - > all top rows are full 
+* No player has won -> win detection does not return true
+
+def is_draw(self) -> bool:
+    if 0 is not in self.state[0] and not self.detectWin():
+        return True
+    else False
+ 
+
+
 
 ---
 
