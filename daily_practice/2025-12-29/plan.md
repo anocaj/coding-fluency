@@ -2,15 +2,64 @@
 
 ## Problem Description
 
-**Problem:** [Brief problem title/name]
+**Problem:**  Task Scheduling
 
-**Source:** [LeetCode/HackerRank/etc. with problem number if applicable]
+**Source:** Helsing
 
-**Difficulty:** [Easy/Medium/Hard]
+**Difficulty:** Mediuem
 
 ### Problem Statement
-[Paste or describe the full problem statement here. Include any constraints, input/output format, and examples provided.]
+#### 3. Task Scheduling
 
+This problem is encountered in many day-to-day tasks when tasks that can sometimes occur in
+parallel and sometimes have dependencies on another need to be performed. Consider a cooking
+recipe: You might need to wash and chop some vegetables while preheating the oven; while the
+vegetables are roasting you can pan fry your favourite protein and prepare a sauce and finally put
+everything together, give it a finishing touch and serve it.
+
+The tasks to cook the dish described above may be described in the problem input as:
+```sh
+preheat_oven
+wash_vegetables
+chop_vegetables wash_vegetables
+bake_vegetables chop_vegetables preheat_oven
+prepare_protein
+panfry_protein prepare_protein
+arrange_on_plate bake_vegetables panfry_protein
+serve_dish arrange_on_plate
+```
+The format of each line is task_id [task_id [...]], where the zero- or more following task IDs
+represent the tasks that must be completed before the current task (the first task ID) can be
+started.
+
+Step 1: Decide whether a task can be completed as a starting task
+Step 2: Arrive at a valid order in which those tasks can be performed
+
+Example input 1:
+```sh
+bake_vegetables chop_vegetables preheat_oven
+chop_vegetables wash_vegetables
+panfry_protein prepare_protein
+clean_kitchen arrange_on_plate
+prepare_protein
+preheat_oven
+serve_dish arrange_on_plate
+wash_vegetables
+arrange_on_plate bake_vegetables panfry_protein
+```
+
+```sh
+Example input 2:
+bake_vegetables chop_vegetables preheat_oven
+chop_vegetables wash_vegetables
+panfry_protein prepare_protein arrange_on_plate
+clean_kitchen arrange_on_plate
+prepare_protein
+preheat_oven
+serve_dish arrange_on_plate
+wash_vegetables
+arrange_on_plate bake_vegetables panfry_protein
+``` 
 ### Examples
 ```
 Input: [example input]
